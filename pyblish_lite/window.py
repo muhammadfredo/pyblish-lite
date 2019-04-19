@@ -611,11 +611,19 @@ class Window(QtWidgets.QDialog):
             })
 
         elif index.data(model.Type) == "instance":
+            instance_dict = index.data(model.Data)
+            error_mssg = instance_dict.get('error')
+
+            text = ''
+            if error_mssg and error_mssg != 'None':
+                error_mssg = str(error_mssg)
+                text += '{} :\n  {}\n'.format('Error massage', error_mssg)
+
             details.show({
                 "icon": index.data(model.Icon) or awesome["file"],
                 "heading": index.data(model.Label),
                 "subheading": ", ".join(index.data(model.Families)),
-                "text": "",
+                "text": text,
                 "timestamp": str(index.data(model.Duration) or 0) + " ms",
             })
 

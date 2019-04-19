@@ -59,6 +59,7 @@ HasFailed = QtCore.Qt.UserRole + 6
 HasSucceeded = QtCore.Qt.UserRole + 7
 HasProcessed = QtCore.Qt.UserRole + 8
 Duration = QtCore.Qt.UserRole + 11
+ErrorText = QtCore.Qt.UserRole + 100
 
 # PLUGINS
 
@@ -134,6 +135,7 @@ class Item(Abstract):
             Actions: "actions",
             IsOptional: "optional",
             Icon: "icon",
+            ErrorText: 'error',
 
             # GUI-only data
             Type: "_type",
@@ -379,7 +381,13 @@ class Instance(Item):
         if key is None:
             return
 
-        item.data[key] = value
+        if key == 'error':
+            try:
+                item.data[key] += value
+            except:
+                item.data[key] = value
+        else:
+            item.data[key] = value
 
         if __binding__ in ("PyQt4", "PySide"):
             self.dataChanged.emit(index, index)
@@ -399,6 +407,9 @@ class Instance(Item):
         self.setData(index, False, IsProcessing)
         self.setData(index, True, HasProcessed)
         self.setData(index, result["success"], HasSucceeded)
+
+        if result["error"]:
+            self.setData(index, str(result["error"]), ErrorText)
 
         # Once failed, never go back.
         if not self.data(index, HasFailed):
