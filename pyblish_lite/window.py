@@ -617,7 +617,9 @@ class Window(QtWidgets.QDialog):
             text = ''
             if error_mssg and error_mssg != 'None':
                 error_mssg = str(error_mssg)
-                text += '{} :\n  {}\n'.format('Error massage', error_mssg)
+                text = '{} :\n'.format('Error massage')
+                for o in error_mssg.split(';'):
+                    text += '  {}\n'.format(o)
 
             details.show({
                 "icon": index.data(model.Icon) or awesome["file"],

@@ -383,7 +383,7 @@ class Instance(Item):
 
         if key == 'error':
             try:
-                item.data[key] += value
+                item.data[key] += ';{}'.format(value)
             except:
                 item.data[key] = value
         else:
