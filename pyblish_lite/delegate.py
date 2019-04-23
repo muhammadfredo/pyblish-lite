@@ -2,7 +2,7 @@ import platform
 
 from .vendor.Qt import QtWidgets, QtGui, QtCore
 
-from . import model
+from . import model, settings
 from .awesome import tags as awesome
 
 colors = {
@@ -168,7 +168,7 @@ class Artist(QtWidgets.QStyledItemDelegate):
         content_rect = body_rect.adjusted(5, 5, -5, -5)
 
         toggle_rect = QtCore.QRectF(body_rect)
-        toggle_rect.setWidth(7)
+        toggle_rect.setWidth(settings.ArtistItemToggleWidth)
         toggle_rect.adjust(1, 1, 0, -1)
 
         icon_rect = QtCore.QRectF(content_rect)
@@ -181,7 +181,7 @@ class Artist(QtWidgets.QStyledItemDelegate):
 
         label_rect = QtCore.QRectF(content_rect)
         label_rect.translate(icon_rect.width() +
-                             spacing, 0)
+                             (spacing * 2), 0)
         label_rect.setHeight(metrics.lineSpacing() + spacing)
 
         families_rect = QtCore.QRectF(label_rect)
@@ -264,7 +264,7 @@ class Artist(QtWidgets.QStyledItemDelegate):
         painter.restore()
 
     def sizeHint(self, option, index):
-        return QtCore.QSize(option.rect.width(), 80)
+        return QtCore.QSize(option.rect.width(), settings.ArtistItemHeight)
 
 
 class Terminal(QtWidgets.QStyledItemDelegate):

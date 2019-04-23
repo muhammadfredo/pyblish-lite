@@ -10,3 +10,7 @@ WindowSize = (430, 600)
 
 # Simple filter for terminal.
 TerminalLoglevel = 10 # logging.DEBUG
+
+# Artist item delegate height
+ArtistItemHeight = 80
+ArtistItemToggleWidth = 7
