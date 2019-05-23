@@ -617,7 +617,7 @@ class Window(QtWidgets.QDialog):
             text = ''
             if error_mssg and error_mssg != 'None':
                 error_mssg = str(error_mssg)
-                text = '{} :\n'.format('Error massage')
+                text = '{} :\n'.format('Error message')
                 for o in error_mssg.split(';'):
                     text += '  {}\n'.format(o)
 
